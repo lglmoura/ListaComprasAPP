@@ -36,6 +36,15 @@ public class RestFullUnitTest {
     }
 
 
+        @Test
+        public void dogets() throws Exception {
+
+            json = http.doGet(durl+".json");
+
+          //assertEquals(12, json.);
+            http.doDelete(durl+"/"+id+".json");
+        }
+
     @Test
     public void doget() throws Exception {
 
@@ -46,18 +55,41 @@ public class RestFullUnitTest {
     }
 
 
-    @Test
-    public void doPost() throws Exception {
+        @Test
+        public void doDelete() throws Exception {
 
-        assertEquals("luiz", json.getString("nome"));
-        //http.doDelete(durl+"/"+id+".json");
+            json = http.doDelete(durl+"/"+id+".json");
 
-    }
+            assertEquals(null, json);
+        }
+
+        @Test
+        public void doPost() throws Exception{
+
+            assertEquals("Aula", json.getString("nome"));
+            http.doDelete(durl+"/"+id+".json");
+
+        }
+        @Test
+        public void doPut() throws Exception{
+
+            JSONObject oPut = new JSONObject();
+            oPut.put("nome","Gustavo:"+id);
+            oPut.put("endereco","Av Presidente:"+id);
+            oPut.put("numero","400:"+id);
+
+            json = http.doPut(durl+"/"+id+".json",oPut);
+
+            assertEquals("Gustavo:"+id, json.getString("nome"));
+            http.doDelete(durl+"/"+id+".json");
+
+        }
+
 
     private JSONObject getParams() {
         JSONObject params = new JSONObject();
         try {
-            params.put("nome", "luiz");
+            params.put("nome", "Aula");
             params.put("endereco", "AV PV");
             params.put("numero", "4000");
 

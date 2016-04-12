@@ -29,21 +29,6 @@ public class RestFullHelper {
     private String contentType;
     private String charsetToEncode;
 
-
-    public JSONObject doGet(String url) {
-        return doGet(url, StandardCharsets.UTF_8);
-    }
-
-    public JSONObject doGet(String url, Charset charset) {
-
-
-        if (LOG_ON) {
-            Log.d(TAG, ">>>>>>>>>>> Http.doGet: " + url);
-        }
-
-        return getJSON(url, GET);
-    }
-
     public JSONObject doPost(String url, JSONObject params) {
         return doPost(url, params, StandardCharsets.UTF_8);
 
@@ -59,6 +44,48 @@ public class RestFullHelper {
         return getJSON(url, POST, params, charset);
     }
 
+    public JSONObject doPut(String url, JSONObject params) {
+        return doPut(url, params, StandardCharsets.UTF_8);
+
+    }
+
+    public JSONObject doPut(String url, JSONObject params, Charset charset) {
+
+
+        if (LOG_ON) {
+            Log.d(TAG, ">> Http.doPut: " + url);
+        }
+
+        return getJSON(url, PUT, params, charset);
+    }
+
+    public JSONObject doGet(String url) {
+        return doGet(url, StandardCharsets.UTF_8);
+    }
+
+    public JSONObject doGet(String url, Charset charset) {
+
+
+        if (LOG_ON) {
+            Log.d(TAG, ">>>>>>>>>>> Http.doGet: " + url);
+        }
+
+        return getJSON(url, GET);
+    }
+
+    public JSONObject doDelete(String url) {
+        return doDelete(url, StandardCharsets.UTF_8);
+    }
+
+    public JSONObject doDelete(String url, Charset charset) {
+
+
+        if (LOG_ON) {
+            Log.d(TAG, ">> Http.doDelete: " + url);
+        }
+
+        return getJSON(url, DELETAR);
+    }
 
     public JSONObject getJSON(String url, String method) {
         return getJSON(url, method, null, StandardCharsets.UTF_8);
