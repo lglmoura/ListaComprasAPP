@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">ListaComprasAPP</string>
+
+    <string name="stvCodigo">Codigo</string>
+    <string name="stvNome">Nome</string>
+    <string name="stvEndereco">Endereço</string>
+    <string name="sbtConsultar">Consultar</string>
+    <string name="sbtSalvar">Salvar</string>
+    <string name="sbtLimpar">Limpar</string>
+    <string name="sbtDeletar">Deletar</string>
+    <string name="stvNumero">Número</string>
+    <string name="stvCnpj">CNPJ</string>
+    <string name="URL">http://listacompras-pooa20162.herokuapp.com</string>
 </resources>
