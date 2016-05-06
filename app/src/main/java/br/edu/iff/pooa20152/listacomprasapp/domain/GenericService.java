@@ -22,7 +22,7 @@ public abstract class GenericService {
     public boolean LOG_ON = false;
 
     /////Context context,
-    public <T> List<T> getWebService(String url, Object domain) {
+    public <T> List<T> getAll(String url, Object domain) {
 
         RestFullHelper http = new RestFullHelper();
 
@@ -30,23 +30,19 @@ public abstract class GenericService {
 
         if (LOG_ON) {
             Log.d(TAG, "URL -> " + url);
-        //} else {
-            System.out.println("URL  -> " + url);
-            System.out.println("Json -> " + json);
+
         }
         /* context, */
         List<T> lista = null;
-        try {
-            lista = parserJSON(json, domain);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        lista = parserJSON(json, domain);
+
 
         return lista;
     }
 
     ///private static , Context context,
-    public <T> List<T> parserJSON(JSONObject obj, Object domain) throws IOException {
+    public <T> List<T> parserJSON(JSONObject obj, Object domain) {
         List<T> listas = new ArrayList<T>();
 
         try {
@@ -55,38 +51,8 @@ public abstract class GenericService {
             // Insere cada carro na lista
             for (int i = 0; i < AjsonDomain.length(); i++) {
                 JSONObject jsonDomain = AjsonDomain.getJSONObject(i);
-                Object oClass = null;
-                try {
-                    oClass = domain.getClass().newInstance();
-                } catch (InstantiationException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-                Field fe[] = oClass.getClass().getDeclaredFields();
 
-                for (Field f : fe) {
-                    f.setAccessible(true);
-
-
-                    try {
-                        //if (!f.getName().equalsIgnoreCase("id"))
-                        f.set(oClass, jsonDomain.get(f.getName()));
-                    } catch (IllegalAccessException e) {
-                        e.printStackTrace();
-                    }
-
-                    /*
-                    try {
-                        System.out.println(i);
-                        System.out.println(f.getName() + " - " + f.get(oClass));
-                    } catch (IllegalAccessException e) {
-                        e.printStackTrace();
-                    }
-                    */
-
-                }
-                listas.add((T) oClass);
+                listas.add((T) instanceObject(jsonDomain, domain));
 
 
             }
@@ -94,10 +60,42 @@ public abstract class GenericService {
                 Log.d(TAG, " encontrados.");
             }
         } catch (JSONException e) {
-            throw new IOException(e.getMessage(), e);
+            try {
+                throw new IOException(e.getMessage(), e);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
 
         return listas;
+    }
+
+
+    private Object instanceObject(JSONObject jsonDomain, Object domain) {
+        Object oClass = null;
+        try {
+            oClass = domain.getClass().newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        Field fe[] = oClass.getClass().getDeclaredFields();
+
+        for (Field f : fe) {
+            f.setAccessible(true);
+
+            try {
+                f.set(oClass, jsonDomain.get(f.getName()));
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+        return oClass;
     }
 
 

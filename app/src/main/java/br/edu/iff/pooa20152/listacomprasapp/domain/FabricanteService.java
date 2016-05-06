@@ -2,7 +2,6 @@ package br.edu.iff.pooa20152.listacomprasapp.domain;
 
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,9 +10,9 @@ import java.util.List;
  */
 public class FabricanteService extends GenericService {
 
-    public List<Fabricante> getWebService(String url, Fabricante domain) {
+    public List<Fabricante> getAll(String url, Fabricante domain) {
 
-        List<Fabricante> listaFabricantes = super.getWebService(url, domain);
+        List<Fabricante> listaFabricantes = super.getAll(url, domain);
 
        /*
 
@@ -29,11 +28,9 @@ public class FabricanteService extends GenericService {
 
     public List<Fabricante> listaFabricante(JSONObject json, Fabricante domain) {
         List<Fabricante> lfab = new ArrayList<Fabricante>();
-        try {
-            lfab = super.parserJSON(json, domain);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        lfab = super.parserJSON(json, domain);
+
         return lfab;
     }
 }

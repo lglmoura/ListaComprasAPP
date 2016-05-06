@@ -24,7 +24,7 @@ public class FabricanteServiceTest {
         FabricanteService fs = new FabricanteService();
         Fabricante fab = new Fabricante();
 
-        jf = fs.getWebService(durl,fab);
+        jf = fs.getAll(durl,fab);
 
     }
 
@@ -34,7 +34,7 @@ public class FabricanteServiceTest {
     }
 
     @Test
-    public void testGetWebService() throws Exception {
+    public void testGetAll() throws Exception {
 
         assertEquals(26,jf.size());
 
