@@ -8,14 +8,14 @@ import org.parceler.Parcel;
 @Parcel
 public class Fabricante {
 
-    private String codigo;
+    private Integer id;
     private String nome;
     private String endereco;
     private String numero;
     private String cnpj;
 
-    public Fabricante(String codigo, String nome, String endereco, String numero, String cnpj) {
-        this.codigo = codigo;
+    public Fabricante(Integer id, String nome, String endereco, String numero, String cnpj) {
+        this.id = id;
         this.nome = nome;
         this.endereco = endereco;
         this.numero = numero;
@@ -26,12 +26,12 @@ public class Fabricante {
 
     }
 
-    public String getCodigo() {
-        return codigo;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -69,7 +69,7 @@ public class Fabricante {
     @Override
     public String toString() {
         return "Fabricante{" +
-                "nome='" + nome + '\'' +
+                "id=" + id +
                 '}';
     }
 }

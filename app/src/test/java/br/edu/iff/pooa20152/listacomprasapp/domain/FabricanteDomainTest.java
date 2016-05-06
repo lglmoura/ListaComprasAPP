@@ -13,7 +13,7 @@ public class FabricanteDomainTest {
     private Fabricante fab;
     @Before
     public void setUp() throws Exception {
-        fab = new Fabricante("01","coca","Rau 01","400","1234567890");
+        fab = new Fabricante(01,"coca","Rau 01","400","1234567890");
 
     }
 
@@ -22,16 +22,7 @@ public class FabricanteDomainTest {
        fab = null;
     }
 
-    @Test
-    public void testGetCodigo() throws Exception {
-        assertEquals("01", fab.getCodigo());
-    }
 
-    @Test
-    public void testSetCodigo() throws Exception {
-        fab.setCodigo("02");
-        assertEquals("02", fab.getCodigo());
-    }
 
     @Test
     public void testGetNome() throws Exception {

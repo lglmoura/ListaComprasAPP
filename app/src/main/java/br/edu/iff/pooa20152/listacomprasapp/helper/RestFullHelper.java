@@ -2,6 +2,7 @@ package br.edu.iff.pooa20152.listacomprasapp.helper;
 
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -101,6 +102,7 @@ public class RestFullHelper {
 
         String json = null;
         JSONObject jObj = null;
+        JSONArray jA = null;
 
         try {
             conn = (HttpURLConnection) getConnection(url, method, "application/json");
@@ -125,17 +127,21 @@ public class RestFullHelper {
                 in = conn.getInputStream();
             }
 
+
             BufferedReader reader = new BufferedReader(new InputStreamReader(in, charset));
+
+
             json = buffering(reader);
 
             if (LOG_ON) {
                 Log.d(TAG, "JSON << Http.do" + method + ": " + json);
-            } else {
-                System.out.println("<< Http.do" + method + ": " + json);
+            //} else {
+                System.out.println("<< Http.Method >> " + method + ": " + json);
             }
 
 
             in.close();
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -145,14 +151,15 @@ public class RestFullHelper {
             }
         }
 
+
         try {
             jObj = new JSONObject(json);
-        } catch (JSONException e) {
-            jObj = null;
-        }
 
-        if (LOG_ON) {
-            Log.d(TAG, "<< Http.doGet: " + jObj);
+
+        } catch (JSONException e) {
+            //e.printStackTrace();
+            jObj = null;
+
         }
 
         return jObj;
@@ -164,6 +171,7 @@ public class RestFullHelper {
 
             String line = null;
             while ((line = reader.readLine()) != null) {
+
                 sb.append(line + "\n");
             }
 
@@ -204,7 +212,6 @@ public class RestFullHelper {
 
         return conn;
     }
-
 
 
 }
