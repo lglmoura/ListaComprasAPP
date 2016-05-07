@@ -29,9 +29,9 @@ public abstract class GenericService {
         return instanceObject(json,domain);
     }
 
-    public Object doDelete(String url, Object domain){
+    public Object doDelete(String url,String id){
 
-        JSONObject json = http.doDelete(url);
+        JSONObject json = http.doDelete(url+"/"+id+".json");
 
         return null;
     }

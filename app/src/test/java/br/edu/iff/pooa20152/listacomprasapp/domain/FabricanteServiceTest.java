@@ -16,13 +16,12 @@ import static junit.framework.Assert.assertEquals;
  */
 public class FabricanteServiceTest {
 
-    private FabricanteService fabricanteService;
-    private String  durl;
-    private List<Fabricante> listaFabricante;
-    private Fabricante fabricante;
-
     JSONObject json;
     String id;
+    private FabricanteService fabricanteService;
+    private String durl;
+    private List<Fabricante> listaFabricante;
+    private Fabricante fabricante;
 
     @Before
     public void setUp() throws Exception {
@@ -38,16 +37,16 @@ public class FabricanteServiceTest {
 
     @After
     public void tearDown() throws Exception {
-       fabricanteService.doDelete(durl + "/" + id + ".json");
+        fabricanteService.doDelete(durl, id);
 
     }
 
     @Test
-    public void test_goGet() throws Exception{
+    public void test_goGet() throws Exception {
 
-        fabricante = fabricanteService.doGet(durl,id);
+        fabricante = fabricanteService.doGet(durl, id);
 
-        assertEquals("Aula",fabricante.getNome());
+        assertEquals("Aula", fabricante.getNome());
     }
 
 
@@ -56,7 +55,7 @@ public class FabricanteServiceTest {
 
         JSONObject oPut = new JSONObject();
         try {
-            oPut.put("id",id);
+            oPut.put("id", id);
             oPut.put("nome", "Gustavo:" + id);
             oPut.put("endereco", "Av Presidente:" + id);
             oPut.put("numero", "400:" + id);
@@ -66,7 +65,7 @@ public class FabricanteServiceTest {
         }
 
 
-        fabricante = fabricanteService.doPut(durl , oPut);
+        fabricante = fabricanteService.doPut(durl, oPut);
 
         Assert.assertEquals("Gustavo:" + id, fabricante.getNome());
 
@@ -75,7 +74,6 @@ public class FabricanteServiceTest {
 
     @Test
     public void test_doPost() {
-
 
 
         Assert.assertEquals("Aula", fabricante.getNome());
@@ -88,7 +86,7 @@ public class FabricanteServiceTest {
         Fabricante fabricanted = fabricanteService.doPost(durl, getParams());
         String idd = Integer.toString(fabricanted.getId()).trim();
 
-        fabricante = fabricanteService.doDelete(durl + "/" + idd + ".json");
+        fabricante = fabricanteService.doDelete(durl, idd);
 
         Assert.assertEquals(null, fabricante);
     }
@@ -98,7 +96,7 @@ public class FabricanteServiceTest {
 
         listaFabricante = fabricanteService.getAll(durl);
 
-        assertEquals(29,listaFabricante.size());
+        assertEquals(29, listaFabricante.size());
 
 
     }
@@ -117,7 +115,6 @@ public class FabricanteServiceTest {
         }
         return params;
     }
-
 
 
 }

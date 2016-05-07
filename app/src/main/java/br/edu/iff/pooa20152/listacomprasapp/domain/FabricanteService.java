@@ -2,7 +2,6 @@ package br.edu.iff.pooa20152.listacomprasapp.domain;
 
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,13 +13,6 @@ public class FabricanteService extends GenericService {
 
         List<Fabricante> listaFabricantes = super.getAll(url,new Fabricante());
 
-       /*
-
-       for(Fabricante fab : listaFabricantes){
-           System.out.println("id "+ fab.getId()+" Nome: "+fab.getNome());
-       }
-
-*/
 
         return listaFabricantes;
 
@@ -31,9 +23,9 @@ public class FabricanteService extends GenericService {
         return (Fabricante) super.doGet(url,id,new Fabricante());
     }
 
-    public Fabricante doDelete(String url){
+    public Fabricante doDelete(String url,String id){
 
-        return (Fabricante) super.doDelete(url,new Fabricante());
+        return (Fabricante) super.doDelete(url,id);
     }
 
     public Fabricante doPut(String url, JSONObject params){
@@ -44,11 +36,5 @@ public class FabricanteService extends GenericService {
         return (Fabricante) super.doPost(url,params,new Fabricante());
     }
 
-    public List<Fabricante> listaFabricante(JSONObject json, Fabricante domain) {
-        List<Fabricante> lfab = new ArrayList<Fabricante>();
 
-        lfab = super.parserJSON(json, domain);
-
-        return lfab;
-    }
 }
