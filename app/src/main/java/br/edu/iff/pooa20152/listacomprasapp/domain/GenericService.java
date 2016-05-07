@@ -20,11 +20,25 @@ public abstract class GenericService {
 
     private static String TAG = "GenericService";
     public boolean LOG_ON = false;
+    RestFullHelper http = new RestFullHelper();
+
+    public Object doGet(String url, Object domain){
+
+        JSONObject json = http.doGet(url);
+
+        return instanceObject(json,domain);
+    }
+
+    public Object doDelete(String url, Object domain){
+
+        JSONObject json = http.doDelete(url);
+
+        return null;
+    }
 
     /////Context context,
     public <T> List<T> getAll(String url, Object domain) {
 
-        RestFullHelper http = new RestFullHelper();
 
         JSONObject json = http.doGet(url);
 
@@ -69,6 +83,8 @@ public abstract class GenericService {
 
         return listas;
     }
+
+
 
 
     private Object instanceObject(JSONObject jsonDomain, Object domain) {

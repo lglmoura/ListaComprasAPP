@@ -10,9 +10,9 @@ import java.util.List;
  */
 public class FabricanteService extends GenericService {
 
-    public List<Fabricante> getAll(String url, Fabricante domain) {
+    public List<Fabricante> getAll(String url) {
 
-        List<Fabricante> listaFabricantes = super.getAll(url, domain);
+        List<Fabricante> listaFabricantes = super.getAll(url,new Fabricante());
 
        /*
 
@@ -25,6 +25,17 @@ public class FabricanteService extends GenericService {
         return listaFabricantes;
 
     }
+
+    public Fabricante doGet(String url){
+
+        return (Fabricante) super.doGet(url,new Fabricante());
+    }
+
+    public Fabricante doDelete(String url){
+
+        return (Fabricante) super.doDelete(url,new Fabricante());
+    }
+
 
     public List<Fabricante> listaFabricante(JSONObject json, Fabricante domain) {
         List<Fabricante> lfab = new ArrayList<Fabricante>();
