@@ -53,6 +53,29 @@ public class FabricanteServiceTest {
         assertEquals("Aula",fabricante.getNome());
     }
 
+
+    @Test
+    public void doPut() {
+
+        JSONObject oPut = new JSONObject();
+        try {
+            oPut.put("id",id);
+            oPut.put("nome", "Gustavo:" + id);
+            oPut.put("endereco", "Av Presidente:" + id);
+            oPut.put("numero", "400:" + id);
+            oPut.put("cnpj", "4010:" + id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        fabricante = fabricanteService.doPut(durl , oPut);
+
+        Assert.assertEquals("Gustavo:" + id, fabricante.getNome());
+
+
+    }
+
     @Test
     public void doDelete() throws Exception {
         JSONObject jsond = http.doPost(durl + ".json", getParams());

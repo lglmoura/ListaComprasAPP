@@ -36,6 +36,17 @@ public abstract class GenericService {
         return null;
     }
 
+    public Object doPut(String url, JSONObject params, Object domain){
+
+        JSONObject json = null;
+        try {
+            json = http.doPut(url + "/" + params.getString("id") + ".json", params);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return instanceObject(json,domain);
+    }
+
     /////Context context,
     public <T> List<T> getAll(String url, Object domain) {
 
