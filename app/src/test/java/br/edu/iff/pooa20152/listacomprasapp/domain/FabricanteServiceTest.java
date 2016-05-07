@@ -9,8 +9,6 @@ import org.junit.Test;
 
 import java.util.List;
 
-import br.edu.iff.pooa20152.listacomprasapp.helper.RestFullHelper;
-
 import static junit.framework.Assert.assertEquals;
 
 /**
@@ -22,20 +20,19 @@ public class FabricanteServiceTest {
     private String  durl;
     private List<Fabricante> listaFabricante;
     private Fabricante fabricante;
-    RestFullHelper http;
+
     JSONObject json;
     String id;
 
     @Before
     public void setUp() throws Exception {
-        //durl = "http://listacompras-pooa20162.herokuapp.com/fabricantes";
-        durl = "http://localhost:3000/fabricantes";
+        durl = "http://listacompras-pooa20162.herokuapp.com/fabricantes";
+        //durl = "http://localhost:3000/fabricantes";
 
         fabricanteService = new FabricanteService();
-        http = new RestFullHelper();
 
-        json = http.doPost(durl + ".json", getParams());
-        id = Integer.toString(json.getInt("id")).trim();
+        fabricante = fabricanteService.doPost(durl, getParams());
+        id = Integer.toString(fabricante.getId()).trim();
 
     }
 
@@ -46,16 +43,16 @@ public class FabricanteServiceTest {
     }
 
     @Test
-    public void testgoGet() throws Exception{
+    public void test_goGet() throws Exception{
 
-        fabricante = fabricanteService.doGet(durl+ "/" + id + ".json");
+        fabricante = fabricanteService.doGet(durl,id);
 
         assertEquals("Aula",fabricante.getNome());
     }
 
 
     @Test
-    public void doPut() {
+    public void test_doPut() {
 
         JSONObject oPut = new JSONObject();
         try {
@@ -77,9 +74,19 @@ public class FabricanteServiceTest {
     }
 
     @Test
-    public void doDelete() throws Exception {
-        JSONObject jsond = http.doPost(durl + ".json", getParams());
-        String idd = Integer.toString(jsond.getInt("id")).trim();
+    public void test_doPost() {
+
+
+
+        Assert.assertEquals("Aula", fabricante.getNome());
+
+
+    }
+
+    @Test
+    public void test_doDelete() throws Exception {
+        Fabricante fabricanted = fabricanteService.doPost(durl, getParams());
+        String idd = Integer.toString(fabricanted.getId()).trim();
 
         fabricante = fabricanteService.doDelete(durl + "/" + idd + ".json");
 
@@ -91,7 +98,7 @@ public class FabricanteServiceTest {
 
         listaFabricante = fabricanteService.getAll(durl+".json");
 
-        assertEquals(11,listaFabricante.size());
+        assertEquals(29,listaFabricante.size());
 
 
     }

@@ -22,9 +22,9 @@ public abstract class GenericService {
     public boolean LOG_ON = false;
     RestFullHelper http = new RestFullHelper();
 
-    public Object doGet(String url, Object domain){
+    public Object doGet(String url, String id,Object domain){
 
-        JSONObject json = http.doGet(url);
+        JSONObject json = http.doGet(url+ "/" + id + ".json");
 
         return instanceObject(json,domain);
     }
@@ -44,6 +44,14 @@ public abstract class GenericService {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        return instanceObject(json,domain);
+    }
+
+    public Object doPost(String url, JSONObject params, Object domain){
+
+
+        JSONObject json = http.doPost(url +  ".json", params);
+
         return instanceObject(json,domain);
     }
 

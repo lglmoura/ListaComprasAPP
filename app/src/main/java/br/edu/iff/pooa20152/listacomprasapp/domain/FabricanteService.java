@@ -26,9 +26,9 @@ public class FabricanteService extends GenericService {
 
     }
 
-    public Fabricante doGet(String url){
+    public Fabricante doGet(String url,String id){
 
-        return (Fabricante) super.doGet(url,new Fabricante());
+        return (Fabricante) super.doGet(url,id,new Fabricante());
     }
 
     public Fabricante doDelete(String url){
@@ -38,6 +38,10 @@ public class FabricanteService extends GenericService {
 
     public Fabricante doPut(String url, JSONObject params){
         return (Fabricante) super.doPut(url,params,new Fabricante());
+    }
+
+    public Fabricante doPost(String url, JSONObject params){
+        return (Fabricante) super.doPost(url,params,new Fabricante());
     }
 
     public List<Fabricante> listaFabricante(JSONObject json, Fabricante domain) {
