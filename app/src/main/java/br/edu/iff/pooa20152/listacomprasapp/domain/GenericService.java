@@ -59,7 +59,7 @@ public abstract class GenericService {
     public <T> List<T> getAll(String url, Object domain) {
 
 
-        JSONObject json = http.doGet(url);
+        JSONObject json = http.doGet(url+".json");
 
         if (LOG_ON) {
             Log.d(TAG, "URL -> " + url);

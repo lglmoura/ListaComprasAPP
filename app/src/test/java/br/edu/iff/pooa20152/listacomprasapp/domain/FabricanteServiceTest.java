@@ -96,7 +96,7 @@ public class FabricanteServiceTest {
     @Test
     public void testGetAll() throws Exception {
 
-        listaFabricante = fabricanteService.getAll(durl+".json");
+        listaFabricante = fabricanteService.getAll(durl);
 
         assertEquals(29,listaFabricante.size());
 
