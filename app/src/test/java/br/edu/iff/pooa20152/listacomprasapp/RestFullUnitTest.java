@@ -41,7 +41,7 @@ public class RestFullUnitTest {
 
         json = http.doGet(durl + ".json");
 
-        assertEquals(27, json.getJSONArray("fabricante").length());
+        assertEquals(29, json.getJSONArray("fabricante").length());
         //http.doDelete(durl + "/" + id + ".json");
     }
 

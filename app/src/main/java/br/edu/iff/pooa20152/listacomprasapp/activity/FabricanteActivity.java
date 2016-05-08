@@ -17,17 +17,18 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import br.edu.iff.pooa20152.listacomprasapp.R;
+import br.edu.iff.pooa20152.listacomprasapp.domain.Fabricante;
+import br.edu.iff.pooa20152.listacomprasapp.domain.FabricanteService;
 import br.edu.iff.pooa20152.listacomprasapp.helper.RestFullHelper;
 
 public class FabricanteActivity extends AppCompatActivity {
 
+    private final String TAG = "MAIN";
     private EditText etCodigo;
     private EditText etNome;
     private EditText etEndereco;
     private EditText etNumero;
     private EditText etCnpj;
-
-    private final String TAG = "MAIN";
     private Button btConsultar;
     private Button btSalvar;
     private Button btLimpar;
@@ -47,6 +48,8 @@ public class FabricanteActivity extends AppCompatActivity {
         etCnpj = (EditText) findViewById(R.id.etCnpj);
 
         durl = getString(R.string.URL);
+        //durl = "http://192.168.0.50:3000";
+
 
         btLimpar = (Button) findViewById(R.id.btLimpar);
         btLimpar.setOnClickListener(new View.OnClickListener() {
@@ -107,7 +110,7 @@ public class FabricanteActivity extends AppCompatActivity {
     }
 
 
-    private void limpar(){
+    private void limpar() {
 
         etCodigo.setText("");
         etNome.setText("");
@@ -124,8 +127,8 @@ public class FabricanteActivity extends AppCompatActivity {
         JSONObject params = null;
 
         FabricanteTask bgtDel = new FabricanteTask(
-                durl + "/fabricantes/"
-                        + etCodigo.getText().toString() + ".json",
+                durl + "/fabricantes",
+                       etCodigo.getText().toString(),
                 RestFullHelper.DELETAR, params);
         bgtDel.execute();
         limpar();
@@ -137,8 +140,8 @@ public class FabricanteActivity extends AppCompatActivity {
         JSONObject params = null;
 
         FabricanteTask bgtGet = new FabricanteTask(
-                durl + "/fabricantes/"
-                        + etCodigo.getText().toString() + ".json",
+                durl + "/fabricantes",
+                       etCodigo.getText().toString(),
                 RestFullHelper.GET, params);
 
         bgtGet.execute();
@@ -163,7 +166,7 @@ public class FabricanteActivity extends AppCompatActivity {
         }
 
         FabricanteTask bgtPost = new FabricanteTask(
-                durl + "/fabricantes.json", RestFullHelper.POST, params);
+                durl + "/fabricantes", null, RestFullHelper.POST, params);
         bgtPost.execute();
 
     }
@@ -175,10 +178,11 @@ public class FabricanteActivity extends AppCompatActivity {
         JSONObject params = new JSONObject();
 
         try {
+            params.put("id", etCodigo.getText().toString());
             params.put("nome", etNome.getText().toString());
             params.put("endereco", etEndereco.getText().toString());
             params.put("numero", etNumero.getText().toString());
-            params.put("cnpj",etCnpj.getText().toString());
+            params.put("cnpj", etCnpj.getText().toString());
 
         } catch (JSONException e) {
             // TODO Auto-generated catch block
@@ -186,10 +190,10 @@ public class FabricanteActivity extends AppCompatActivity {
         }
 
         FabricanteTask bgtPut = new FabricanteTask(
-                durl + "/fabricantes/"
-                        + etCodigo.getText().toString() + ".json",
+                durl + "/fabricantes",etCodigo.getText().toString(),
                 RestFullHelper.PUT, params);
         bgtPut.execute();
+        limpar();
 
     }
 
@@ -212,18 +216,21 @@ public class FabricanteActivity extends AppCompatActivity {
     }
 
 
-    public class FabricanteTask extends AsyncTask<String, String, JSONObject> {
+    public class FabricanteTask extends AsyncTask<String, String, Fabricante> {
 
         String url = null;
         String method = null;
+        String id     = null;
         JSONObject params1 = null;
 
         ProgressDialog dialog;
 
-        public FabricanteTask(String url, String method, JSONObject params1) {
+        public FabricanteTask(String url, String id, String method,  JSONObject params) {
             this.url = url;
             this.method = method;
-            this.params1 = params1;
+            this.params1 = params;
+            this.id = id;
+
 
         }
 
@@ -234,20 +241,17 @@ public class FabricanteActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(JSONObject empregador) {
+        protected void onPostExecute(Fabricante jsonObject) {
 
-            if (empregador != null) {
+            if (jsonObject != null) {
 
-                try {
-                    etCodigo.setText(empregador.getString("id"));
-                    etNome.setText(empregador.getString("nome"));
-                    etEndereco.setText(empregador.getString("endereco"));
-                    etNumero.setText(empregador.getString("numero"));
-                    etCnpj.setText(empregador.getString("cnpj"));
-                } catch (JSONException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
+
+                etCodigo.setText(jsonObject.getId().toString());
+                etNome.setText(jsonObject.getNome());
+                etEndereco.setText(jsonObject.getEndereco());
+                etNumero.setText(jsonObject.getNumero());
+                etCnpj.setText(jsonObject.getCnpj());
+
 
             }
 
@@ -255,10 +259,12 @@ public class FabricanteActivity extends AppCompatActivity {
         }
 
         @Override
-        protected JSONObject doInBackground(String... params) {
-            RestFullHelper http = new RestFullHelper();
+        protected Fabricante doInBackground(String... params) {
+            FabricanteService fabricanteService = new FabricanteService(url,id,method,params1);
 
-            return http.getJSON(url, method, params1);
+            Fabricante fabricante = fabricanteService.execute();
+
+            return fabricante;//http.getJSON(url, method, params1);
 
         }
     }

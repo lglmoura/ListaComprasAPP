@@ -9,6 +9,13 @@ import java.util.List;
  */
 public class FabricanteService extends GenericService {
 
+    public FabricanteService(String url, String id, String method, JSONObject params) {
+        super(url, id, method, params,new Fabricante());
+    }
+    public FabricanteService(){
+        super();
+    }
+
     public List<Fabricante> getAll(String url) {
 
         List<Fabricante> listaFabricantes = super.getAll(url,new Fabricante());
@@ -17,6 +24,8 @@ public class FabricanteService extends GenericService {
         return listaFabricantes;
 
     }
+
+
 
     public Fabricante doGet(String url,String id){
 
@@ -36,5 +45,8 @@ public class FabricanteService extends GenericService {
         return (Fabricante) super.doPost(url,params,new Fabricante());
     }
 
+    public Fabricante execute(){
+      return (Fabricante) super.execute();
+    }
 
 }

@@ -21,22 +21,65 @@ public abstract class GenericService {
     private static String TAG = "GenericService";
     public boolean LOG_ON = false;
     RestFullHelper http = new RestFullHelper();
+    String url = null;
+    String method = null;
+    String id = null;
+    JSONObject params1 = null;
+    Object domain = null;
 
-    public Object doGet(String url, String id,Object domain){
+    public GenericService(String url, String id, String method, JSONObject params, Object domain) {
+        this.url = url;
+        this.method = method;
+        this.params1 = params;
+        this.id = id;
+        this.domain = domain;
 
-        JSONObject json = http.doGet(url+ "/" + id + ".json");
 
-        return instanceObject(json,domain);
     }
 
-    public Object doDelete(String url,String id){
+    public GenericService() {
 
-        JSONObject json = http.doDelete(url+"/"+id+".json");
+    }
+
+    public Object execute() {
+        Object aObj = null;
+
+        if (method.equalsIgnoreCase(RestFullHelper.GET)) {
+            aObj = doGet(url, id, domain);
+        }
+
+        if (method.equalsIgnoreCase(RestFullHelper.DELETAR)) {
+            aObj = doDelete(url, id);
+        }
+
+        if (method.equalsIgnoreCase(RestFullHelper.POST)) {
+            aObj = doPost(url, params1, domain);
+        }
+
+        if (method.equalsIgnoreCase(RestFullHelper.PUT)) {
+            aObj = doPut(url, params1, domain);
+        }
+
+        return aObj;
+    }
+
+
+    public Object doGet(String url, String id, Object domain) {
+
+        JSONObject json = http.doGet(url + "/" + id + ".json");
+
+
+        return instanceObject(json, domain);
+    }
+
+    public Object doDelete(String url, String id) {
+
+        JSONObject json = http.doDelete(url + "/" + id + ".json");
 
         return null;
     }
 
-    public Object doPut(String url, JSONObject params, Object domain){
+    public Object doPut(String url, JSONObject params, Object domain) {
 
         JSONObject json = null;
         try {
@@ -44,22 +87,22 @@ public abstract class GenericService {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return instanceObject(json,domain);
+        return instanceObject(json, domain);
     }
 
-    public Object doPost(String url, JSONObject params, Object domain){
+    public Object doPost(String url, JSONObject params, Object domain) {
 
 
-        JSONObject json = http.doPost(url +  ".json", params);
+        JSONObject json = http.doPost(url + ".json", params);
 
-        return instanceObject(json,domain);
+        return instanceObject(json, domain);
     }
 
     /////Context context,
     public <T> List<T> getAll(String url, Object domain) {
 
 
-        JSONObject json = http.doGet(url+".json");
+        JSONObject json = http.doGet(url + ".json");
 
         if (LOG_ON) {
             Log.d(TAG, "URL -> " + url);
@@ -104,8 +147,6 @@ public abstract class GenericService {
     }
 
 
-
-
     private Object instanceObject(JSONObject jsonDomain, Object domain) {
         Object oClass = null;
         try {
@@ -121,6 +162,7 @@ public abstract class GenericService {
             f.setAccessible(true);
 
             try {
+
                 f.set(oClass, jsonDomain.get(f.getName()));
             } catch (IllegalAccessException e) {
                 e.printStackTrace();

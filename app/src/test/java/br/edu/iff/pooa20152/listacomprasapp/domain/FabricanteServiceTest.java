@@ -9,6 +9,8 @@ import org.junit.Test;
 
 import java.util.List;
 
+import br.edu.iff.pooa20152.listacomprasapp.helper.RestFullHelper;
+
 import static junit.framework.Assert.assertEquals;
 
 /**
@@ -39,6 +41,15 @@ public class FabricanteServiceTest {
     public void tearDown() throws Exception {
         fabricanteService.doDelete(durl, id);
 
+    }
+
+    @Test
+    public void test_execute() throws Exception{
+
+        FabricanteService aFabricanteService = new FabricanteService(durl,id, RestFullHelper.GET,getParams());
+        fabricante = aFabricanteService.execute();
+
+        assertEquals("Aula", fabricante.getNome());
     }
 
     @Test
