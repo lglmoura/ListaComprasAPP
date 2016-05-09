@@ -47,9 +47,10 @@ public class FabricanteActivity extends AppCompatActivity {
         etNumero = (EditText) findViewById(R.id.etNumero);
         etCnpj = (EditText) findViewById(R.id.etCnpj);
 
-        durl = getString(R.string.URL);
-        //durl = "http://192.168.0.50:3000";
 
+        /* Revere onde colocar*/
+
+        durl = getString(R.string.URL);
 
         btLimpar = (Button) findViewById(R.id.btLimpar);
         btLimpar.setOnClickListener(new View.OnClickListener() {
@@ -128,7 +129,7 @@ public class FabricanteActivity extends AppCompatActivity {
 
         FabricanteTask bgtDel = new FabricanteTask(
                 durl + "/fabricantes",
-                       etCodigo.getText().toString(),
+                etCodigo.getText().toString(),
                 RestFullHelper.DELETAR, params);
         bgtDel.execute();
         limpar();
@@ -141,7 +142,7 @@ public class FabricanteActivity extends AppCompatActivity {
 
         FabricanteTask bgtGet = new FabricanteTask(
                 durl + "/fabricantes",
-                       etCodigo.getText().toString(),
+                etCodigo.getText().toString(),
                 RestFullHelper.GET, params);
 
         bgtGet.execute();
@@ -190,7 +191,7 @@ public class FabricanteActivity extends AppCompatActivity {
         }
 
         FabricanteTask bgtPut = new FabricanteTask(
-                durl + "/fabricantes",etCodigo.getText().toString(),
+                durl + "/fabricantes", etCodigo.getText().toString(),
                 RestFullHelper.PUT, params);
         bgtPut.execute();
         limpar();
@@ -220,12 +221,12 @@ public class FabricanteActivity extends AppCompatActivity {
 
         String url = null;
         String method = null;
-        String id     = null;
+        String id = null;
         JSONObject params1 = null;
 
         ProgressDialog dialog;
 
-        public FabricanteTask(String url, String id, String method,  JSONObject params) {
+        public FabricanteTask(String url, String id, String method, JSONObject params) {
             this.url = url;
             this.method = method;
             this.params1 = params;
@@ -260,7 +261,7 @@ public class FabricanteActivity extends AppCompatActivity {
 
         @Override
         protected Fabricante doInBackground(String... params) {
-            FabricanteService fabricanteService = new FabricanteService(url,id,method,params1);
+            FabricanteService fabricanteService = new FabricanteService(url, id, method, params1);
 
             Fabricante fabricante = fabricanteService.execute();
 
