@@ -24,6 +24,7 @@ public class RestFullHelper {
     public static String PUT = "PUT";
     public static String DELETAR = "DELETE";
     public static String GET = "GET";
+    public static String GETALL = "GETALL";
     public final int TIMEOUT_MILLIS = 15000;
     private final String TAG = "Http";
     public boolean LOG_ON = false;
@@ -99,6 +100,7 @@ public class RestFullHelper {
     public JSONObject getJSON(String url, String method, JSONObject params, Charset charset) {
 
         HttpURLConnection conn = null;
+
 
         String json = null;
         JSONObject jObj = null;

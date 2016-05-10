@@ -41,8 +41,8 @@ public class RestFullUnitTest {
 
         json = http.doGet(durl + ".json");
 
-        assertEquals(29, json.getJSONArray("fabricante").length());
-        //http.doDelete(durl + "/" + id + ".json");
+        assertEquals(26, json.getJSONArray("fabricante").length());
+
     }
 
     @Test
@@ -50,7 +50,7 @@ public class RestFullUnitTest {
 
         json = http.doGet(durl + "/" + id + ".json");
         assertEquals("4000", json.getString("numero"));
-        //http.doDelete(durl + "/" + id + ".json");
+
     }
 
 
@@ -68,7 +68,7 @@ public class RestFullUnitTest {
     public void doPost() throws Exception {
 
         assertEquals("Aula", json.getString("nome"));
-        //http.doDelete(durl + "/" + id + ".json");
+
 
     }
 
@@ -84,7 +84,7 @@ public class RestFullUnitTest {
         json = http.doPut(durl + "/" + id + ".json", oPut);
 
         assertEquals("Gustavo:" + id, json.getString("nome"));
-        //http.doDelete(durl + "/" + id + ".json");
+
 
     }
 

@@ -107,7 +107,7 @@ public class FabricanteServiceTest {
 
         listaFabricante = fabricanteService.getAll(durl);
 
-        assertEquals(29, listaFabricante.size());
+        assertEquals(26, listaFabricante.size());
 
 
     }
