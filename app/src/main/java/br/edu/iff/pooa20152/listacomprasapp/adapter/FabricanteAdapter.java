@@ -51,7 +51,7 @@ public class FabricanteAdapter extends BaseAdapter {
             itemHolder.txtNome = ((TextView) view.findViewById(R.id.nomeIF));
             itemHolder.txtCnpj = ((TextView) view.findViewById(R.id.cnpjIF));
             ((Button) view.findViewById(R.id.btnDeleteIF)).setTag(position);
-            ((Button) view.findViewById(R.id.btnEditIF)).setTag(position);
+            //((Button) view.findViewById(R.id.btnEditIF)).setTag(position);
 
 
             //define os itens na view;

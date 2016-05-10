@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activity.FabricanteActivity" />
+        <activity android:name=".activity.FabricanteNewActivity" />
         <activity android:name=".activity.FabricanteListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

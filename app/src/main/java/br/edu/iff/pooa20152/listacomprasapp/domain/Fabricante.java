@@ -5,8 +5,8 @@ import org.parceler.Parcel;
 /**
  * Created by lglmoura on 03/05/16.
  */
-@Parcel
-public class Fabricante {
+
+public class Fabricante implements Serializable{
 
     private Integer id;
     private String nome;

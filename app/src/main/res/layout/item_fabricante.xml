@@ -19,7 +19,7 @@
         android:layout_weight="7"
         android:gravity="center_vertical"
         android:textColor="#FF000000" />
-
+<!--
     <Button
         android:id="@+id/btnEditIF"
         android:layout_width="80dp"
@@ -28,7 +28,7 @@
         android:focusableInTouchMode="false"
         android:text="Editar"
         android:onClick="editaItem"/>
-
+-->
     <Button
         android:id="@+id/btnDeleteIF"
         android:layout_width="80dp"
